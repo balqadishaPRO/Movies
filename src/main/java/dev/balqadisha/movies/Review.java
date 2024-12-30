@@ -23,4 +23,8 @@ public class Review {
     public String getId() {
         return id != null ? id.toHexString() : null;
     }
+
+    public String getBody() {
+        return body;
+    }
 }

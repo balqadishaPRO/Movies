@@ -13,12 +13,20 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/reviews")
 public class ReviewController {
-    @Autowired
     private ReviewService reviewService;
 
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
+
     @PostMapping
-    public ResponseEntity<Review> createReview(@RequestBody Map<String, String> payload) {
-        return new ResponseEntity<Review>(reviewService.createReview(payload.get("reviewBody"),
-                payload.get("imdbId")), HttpStatus.CREATED);
+    public ResponseEntity<Review> createReview(@RequestBody ReviewRequest reviewRequest) {
+        if (reviewRequest.getReviewBody() == null || reviewRequest.getImdbId() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // Создание отзыва через сервис
+        Review createdReview = reviewService.createReview(reviewRequest.getReviewBody(), reviewRequest.getImdbId());
+        return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
     }
 }
