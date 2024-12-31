@@ -31,9 +31,9 @@ public class Movie {
         return id != null ? id.toHexString() : null;
     }
 
-    public List<Review> getReviewIds() {
-        return reviewIds != null ? reviewIds : List.of();
-    }
+//    public List<Review> getReviewIds() {
+//        return reviewIds != null ? reviewIds : List.of();
+//    }
 
     public String getImdbId() {
         return imdbId;
